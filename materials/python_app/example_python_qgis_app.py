@@ -25,7 +25,7 @@ raster_file_uri = 'https://github.com/qgis/QGIS-Sample-Data/' \
                   'SR_50M_alaska_nad.tif?raw=true'
 
 raster_layer = QgsRasterLayer(raster_file_uri, 'test_layer')
-print(raster_layer.isValid())
+
 QgsProject.instance().addMapLayer(raster_layer)
 map_canvas.setLayers([raster_layer])
 map_canvas.setExtent(raster_layer.extent())
