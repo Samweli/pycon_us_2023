@@ -1,11 +1,16 @@
-import sys
 from qgis.core import *
 from qgis.gui import QgsMapCanvas
-from qgis.PyQt.QtWidgets import QApplication, QFrame, QGridLayout, QMainWindow
+from qgis.PyQt.QtWidgets import QFrame, QGridLayout, QMainWindow
 
-application = QApplication(sys.argv)
+application = QgsApplication([], False)
 
-QgsApplication.setPrefixPath('/usr/bin/qgis', True)
+# The prefix path varies depending on the method of installation
+# used to install QGIS and the OS in use.
+# If conda package manager was used to install QGIS then the
+# prefix path should be location of the qgis package.
+# Otherwise the prefix path should be the location of where
+# QGIS application has been installed.
+QgsApplication.setPrefixPath('/usr', True)
 QgsApplication.initQgis()
 
 main_window = QMainWindow()
@@ -23,6 +28,9 @@ layout.addWidget(map_canvas)
 raster_file_uri = 'https://github.com/qgis/QGIS-Sample-Data/' \
                   'blob/master/qgis_sample_data/raster/' \
                   'SR_50M_alaska_nad.tif?raw=true'
+
+open_street_map_uri = 'type=xyz&url=https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&' \
+                      'zmax=19&zmin=0&http-header:referer='
 
 raster_layer = QgsRasterLayer(raster_file_uri, 'test_layer')
 

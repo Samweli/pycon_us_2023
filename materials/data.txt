@@ -1,0 +1,12 @@
+raster_file_uri = 'https://github.com/qgis/QGIS-Sample-Data/' \
+                  'blob/master/qgis_sample_data/raster/' \
+                  'SR_50M_alaska_nad.tif?raw=true'
+
+open_street_map_uri = 'type=xyz&url=https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&' \
+                      'zmax=19&zmin=0&http-header:referer='
+
+weather_data = 'crs=EPSG:4326&dpiMode=7&format=image/png&layers=GDPS.ETA_TT&'
+        'referenceTimeDimensionExtent=2023-04-20T00:00:00Z/2023-04-21T12:00:00Z/PT12H&'
+        'styles&temporalSource=provider&'
+        'timeDimensionExtent=2023-04-21T12:00:00Z/2023-05-01T12:00:00Z/PT3H&'
+        'type=wmst&url=https://geo.weather.gc.ca/geomet?layers%3DGDPS.ETA_TT',
