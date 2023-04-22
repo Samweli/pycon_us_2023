@@ -29,9 +29,6 @@ raster_file_uri = 'https://github.com/qgis/QGIS-Sample-Data/' \
                   'blob/master/qgis_sample_data/raster/' \
                   'SR_50M_alaska_nad.tif?raw=true'
 
-open_street_map_uri = 'type=xyz&url=https://tile.openstreetmap.org/%7Bz%7D/%7Bx%7D/%7By%7D.png&' \
-                      'zmax=19&zmin=0&http-header:referer='
-
 raster_layer = QgsRasterLayer(raster_file_uri, 'test_layer')
 
 QgsProject.instance().addMapLayer(raster_layer)

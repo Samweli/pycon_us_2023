@@ -30,12 +30,15 @@ def set_date_widgets(
     date_three = QPushButton('2023-04-21 18:00:00')
     date_four = QPushButton('2023-04-21 21:00:00')
     date_five = QPushButton('2023-04-22 00:00:00')
+    date_six = QPushButton('2023-04-22 03:00:00')
 
     date_time_one = QDateTime(QDate(2023, 4, 21), QTime(12, 00, 00))
     date_time_two = QDateTime(QDate(2023, 4, 21), QTime(15, 00, 00))
     date_time_three = QDateTime(QDate(2023, 4, 21), QTime(18, 00, 00))
     date_time_four = QDateTime(QDate(2023, 4, 21), QTime(21, 00, 00))
     date_time_five = QDateTime(QDate(2023, 4, 22), QTime(00, 00, 00))
+    date_time_six = QDateTime(QDate(2023, 4, 22), QTime(3, 00, 00))
+
 
     animate_date_one = partial(get_date, map_canvas, date_time_one)
     date_one.clicked.connect(animate_date_one)
@@ -52,19 +55,23 @@ def set_date_widgets(
     animate_date_five = partial(get_date, map_canvas, date_time_five)
     date_five.clicked.connect(animate_date_five)
 
+    animate_date_six = partial(get_date, map_canvas, date_time_six)
+    date_six.clicked.connect(animate_date_six)
+
     dates = [
         date_time_one,
         date_time_two,
         date_time_three,
         date_time_four,
-        date_time_five
+        date_time_five,
+        date_time_six
     ]
 
     slider = QgsSlider(Qt.Orientation.Horizontal, main_window)
     value_changed = partial(slider_value_changed, map_canvas, dates)
     slider.valueChanged.connect(value_changed)
     slider.setMinimum(0)
-    slider.setMaximum(4)
+    slider.setMaximum(5)
     slider.setSingleStep(1)
     slider.setTickPosition(QgsSlider.TickPosition.TicksBothSides)
     slider.setTracking(True)
@@ -75,6 +82,7 @@ def set_date_widgets(
     h_layout.addWidget(date_three)
     h_layout.addWidget(date_four)
     h_layout.addWidget(date_five)
+    h_layout.addWidget(date_six)
 
     layout.addLayout(h_layout, 1, 0)
     layout.addWidget(slider)
