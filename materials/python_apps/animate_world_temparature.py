@@ -7,10 +7,28 @@ from qgis.PyQt.QtCore import QDateTime, QDate, QTime, Qt
 
 
 def slider_value_changed(map_canvas, dates, value):
+    """ Handles the application slider value update
+
+    :param map_canvas: QGIS map canvas instance
+    :type map_canvas: QgsMapCanvas
+
+    :param date: Date that is to be set into the map canvas
+    :type date: QDateTime
+    """
     get_date(map_canvas, dates[value])
 
 
 def get_date(map_canvas, date):
+    """ Refreshes the passed QGIS map canvas with the date
+    :param map_canvas: QGIS map canvas instance
+    :type map_canvas: QgsMapCanvas
+
+    :param date: Date that is to be set into the map canvas
+    :type date: QDateTime
+
+    """
+    # The map canvas temporal range uses QgsDateTimeRange instance
+    # as a type for the datetime properties.
     time = QgsDateTimeRange(
         date,
         date
@@ -25,12 +43,35 @@ def set_date_widgets(
         frame,
         layout
 ):
+    """
+    Initializes slider and date buttons widgets that will
+    be used in the navigation of the temporal layer.
+
+    :param map_canvas: QGIS map canvas instance
+    :type map_canvas: QgsMapCanvas
+
+    :param main_window: Main application window
+    :type main_window: QMainWindow
+
+    :param frame: Frame that will hold all widgets
+    :type frame: QFrame
+
+
+    :param layout: Main window layout
+    :type layout: QLayout
+    """
+
     date_one = QPushButton('2023-04-21 12:00:00')
     date_two = QPushButton('2023-04-21 15:00:00')
     date_three = QPushButton('2023-04-21 18:00:00')
     date_four = QPushButton('2023-04-21 21:00:00')
     date_five = QPushButton('2023-04-22 00:00:00')
     date_six = QPushButton('2023-04-22 03:00:00')
+
+    # Setting the datetimes based on the available temporal data from
+    # the used layer, at the time of writing this the layer had the below temporal
+    # date time values available. These might need to be changed by looking
+    # at the temporal layer capabilities.
 
     date_time_one = QDateTime(QDate(2023, 4, 21), QTime(12, 00, 00))
     date_time_two = QDateTime(QDate(2023, 4, 21), QTime(15, 00, 00))
@@ -89,8 +130,15 @@ def set_date_widgets(
 
 
 def run():
+    """ Main application function """
     application = QgsApplication([], False)
 
+    # The prefix path varies depending on the method of installation
+    # used to install QGIS and the OS in use.
+    # If conda package manager was used to install QGIS then the
+    # prefix path should be location of the qgis package.
+    # Otherwise the prefix path should be the location of where
+    # QGIS application has been installed.
     QgsApplication.setPrefixPath('/usr', True)
     QgsApplication.initQgis()
 
@@ -106,6 +154,11 @@ def run():
     map_canvas = QgsMapCanvas()
     layout.addWidget(map_canvas)
 
+
+    # Initiliazing a QGIS raster layer from that is served via WMS,
+    # the raster layer uri is required to have a string of parameters and
+    # values as found on its capabilities properties.
+    #
     raster_layer = QgsRasterLayer(
         'crs=EPSG:4326&dpiMode=7&format=image/png&layers=GDPS.ETA_TT&'
         'referenceTimeDimensionExtent=2023-04-20T00:00:00Z/2023-04-21T12:00:00Z/PT12H&'
